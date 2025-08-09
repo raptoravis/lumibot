@@ -1,13 +1,8 @@
 import argparse
 
 from datetime import datetime
+from termcolor import colored
 from lumibot.strategies import Strategy
-
-ALPACA_CONFIG = {
-    "API_KEY": "PK5CYU1E525N21HPLI6T",
-    "API_SECRET": "4gwF6dsXr1gpghwFG9YSD7Gr0hYM4afRp7eHmyHb",
-    "PAPER": True
-}
 
 
 class MyStrategy(Strategy):
@@ -37,7 +32,9 @@ def run_strat(use_bt: bool):
     else:
         from lumibot.brokers import Alpaca
         from lumibot.traders import Trader
+        from lumibot.credentials import ALPACA_CONFIG
 
+        print(colored(ALPACA_CONFIG, "cyan"))
         trader = Trader()
         broker = Alpaca(ALPACA_CONFIG)
         strategy = MyStrategy(broker=broker)
@@ -51,10 +48,14 @@ def run_strat(use_bt: bool):
 def main():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("-d", "--md5", help="md5 hash", type=str)
     parser.add_argument(
-        "--live",
-        help="send email",
+            "--live",
+            help="live mode",
+            action="store_true",
+        )
+    parser.add_argument(
+        "--print",
+        help="print config",
         action="store_true",
     )
     args = parser.parse_args()

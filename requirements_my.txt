@@ -1,0 +1,4 @@
+-r requirements_dev.txt
+
+# quantstats-lumi
+# git+https://github.com/Lumiwealth/quantstats_lumi@main
